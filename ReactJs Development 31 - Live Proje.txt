@@ -1,0 +1,42 @@
+ReactJs Development 31 - Live Project - Business Directory
+
+Business Directory Example
+1. Justdial.com
+2. http://yellowpages.in/
+
+
+Frontend - ReactJs
+		npx create-react-app frontend-business-directory
+		npm install react-router-dom
+		npm install react-bootstrap bootstrap
+
+Pages
+		Home
+				1. Header
+						1.1 Header Navigation
+				2. Main
+						2.1 Business Category List
+								2.1.1 Sub Business Category List
+				3. Footer
+						3.1 Footer Navigation
+		
+		DetailPage
+					*. BusinessName
+					 . BusinessLogo
+					 . BusinessAddress
+					 . BusinessPhone
+		Login
+
+		Registration
+				http://localhost:1337/auth/local/register
+		
+
+Backend  - Strapi
+		npx create-strapi-app@latest backend-business-directory
+		npm run strapi install documentation  
+				SwaggerUI
+
+		npm run develop
+
+
+GUI = Graphical User Interface
