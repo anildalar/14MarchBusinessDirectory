@@ -33,10 +33,10 @@ export default function Register() {
         .then(res=>res.json())
         .then(data=>{
             console.log(data);
-            if(data.data === null){
-               swal("Bad job!",`${data.error.message}`, "error");
-            }else{
+            if(data.data !== null){
                 swal("Good job!", "User Created Successfully!", "success");    
+            }else{
+                swal("Bad job!",`${data.error.message}`, "error");
 
             } 
             

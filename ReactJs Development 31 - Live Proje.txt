@@ -40,3 +40,21 @@ Backend  - Strapi
 
 
 GUI = Graphical User Interface
+
+
+
+
+
+
+Business Directory
+
+Country
+			States
+					Cities
+								BusinessA
+								BusinessB
+					Neemuch
+								OKLABS   <--- EductionInstitute
+								DOLLORINFOTECH  <---- Software Companies
+
+								SupremeElectronics <--- Electronic Showroom
