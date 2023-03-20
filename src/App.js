@@ -10,10 +10,18 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 
 
+
 //2. Defination Area
 export default function App() {
     //2.1 Hooks Area
 
+    if(window.localStorage.getItem('jwt_token') === null){
+        return (
+            <>
+                <Login /> 
+            </>
+        )
+    }
 
     //2.2 Function Defination Area
 
@@ -26,17 +34,19 @@ export default function App() {
                     <Route path="detail" element={<Detail />}></Route>
                     <Route path="login" element={<Login />}></Route>
                     <Route path="register" element={<Register />}></Route>
-                    {
-                       
-                        window.localStorage.getItem('jwt_token') !== null &&
-                        <Route path="business_register" element={<BusinessRegister />}></Route>
-                    }
-                    
+                    <Route path="business_register" element={<BusinessRegister />}></Route>                   
                 </Route>
             </Routes>
         </BrowserRouter>
     )
 }
 
+/**
+ if(window.localStorage.getItem('jwt_token') === null){
+                            window.location.href = '/login';
+                        }else{
+                            return <Route path="business_register" element={<BusinessRegister />}></Route>
+                        }
+ */
 
 //3. Export Area

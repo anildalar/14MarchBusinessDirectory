@@ -58,3 +58,60 @@ Country
 								DOLLORINFOTECH  <---- Software Companies
 
 								SupremeElectronics <--- Electronic Showroom
+
+
+
+https://just.netlify.app
+
+
+
+Topics to covered
+1. Localization/MultiLingual Website
+2. User Review/Testimonials and Rating
+3.  GeoLocation HTML5 API
+4. APP_Info Single Content Type
+     4.1 App Logo
+      4.2 App FaceBook
+      4.3 App Twiiter
+      4.4 App Youtube
+      4.5 App Linkdin
+      4.6 App Instagram
+5. Busniess Enquiry System
+6. Google Map Location of Business
+7.  Business Filtering Page
+8.  Career Apply For
+9. All Pages 
+10. Business Upload Photo by Guest/Loggedin User System
+11. Work on Protected APIs - Done
+
+All these can be done using StrapiBackend and Using Frontent ReactJS
+We will going a lot
+be Ready 🚀❣️
+
+
+Status Code 403 = Unauthorized/Forbidden
+
+
+LocalStorage
+1. Set
+2. Get
+3. Remove
+
+
+
+Things to Do
+
+1. Protect the Authenticated page direct access
+	If someone is trying to access the authencted page with token the we will redirect to login page
+
+Single Line wala IFElse
+
+Ternary Operator
+C?T:F
+C= Condition
+T = True
+F = False
+
+
+
+
