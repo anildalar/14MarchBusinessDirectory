@@ -6,8 +6,13 @@ import { URL } from '../../helpers/url';
 export default function Navigation() {
     //2.1 Hooks Area
     const [logo,setLogo] = useState('')
-
+    let x=document.getElementById("demo");;
     useEffect(()=>{
+       // console.log('google -------->',google);
+
+        //var latlng = new window.google.maps.LatLng(24.45558, 74.8857875);
+        //console.log('latlng------>',latlng);
+
         fetch(`${URL}/api/website?populate=*`)
         .then(res=>res.json())
         .then(data=>{
@@ -17,10 +22,41 @@ export default function Navigation() {
         .catch(err=>err);
     },[]);
     
-    //2.2
+    //2.2 function defination area
     let myLogout=()=>{
         window.localStorage.removeItem('jwt_token')
         window.location.href = '/login';
+    }
+    /* let getReverseGeocodingData=(lat, lng)=>{
+        var latlng = new google.maps.LatLng(lat, lng);
+        // This is making the Geocode request
+        var geocoder = new google.maps.Geocoder();
+        geocoder.geocode({ 'latLng': latlng }, function (results, status) {
+            if (status !== google.maps.GeocoderStatus.OK) {
+                alert(status);
+            }
+            // This is checking to see if the Geoeode Status is OK before proceeding
+            if (status == google.maps.GeocoderStatus.OK) {
+                console.log(results);
+                var address = (results[0].formatted_address);
+            }
+        });
+    } */
+
+    let detectLocation = ()=>{ //Fat Arrow function
+        //alert('JIJIJIJIJ');
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+            
+        } else {
+            x.value = "Geolocation is not supported by this browser.";
+          }
+    }
+    let showPosition=(position)=>{
+        console.log(position)
+        x.value = 'Indira Nagar Neemuch'; 
+        //x.innerHTML = "Latitude: " + position.coords.latitude +
+       //"<br>Longitude: " + position.coords.longitude;
     }
     
     return (
@@ -63,11 +99,13 @@ export default function Navigation() {
                             
                         </Nav>
                         <Form className="d-flex">
+                            <Button className="btn btn-sm" onClick={()=>{ detectLocation() }}>Detect Location</Button>
                             <Form.Control
-                            type="search"
-                            placeholder="Search"
-                            className="me-2"
-                            aria-label="Search"
+                                type="search"
+                                placeholder="Search"
+                                className="me-2"
+                                aria-label="Search"
+                                id="demo"
                             />
                             <Button variant="outline-success">Search</Button>
                         </Form>
