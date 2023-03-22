@@ -8,6 +8,7 @@ import Detail from './pages/Detail'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import Register from './pages/Register'
+import SearchFilter from './pages/SearchFilter'
 
 
 
@@ -35,6 +36,7 @@ export default function App() {
                     <Route path="login" element={<Login />}></Route>
                     <Route path="register" element={<Register />}></Route>
                     <Route path="business_register" element={<BusinessRegister />}></Route>                   
+                    <Route path="search" element={<SearchFilter />}></Route>                   
                 </Route>
             </Routes>
         </BrowserRouter>

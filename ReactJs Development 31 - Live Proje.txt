@@ -113,5 +113,14 @@ T = True
 F = False
 
 
+HTML5 API
+1. WebStorage
+			1.1 LocalStorage
+2.GeoLocation API
+		2.1 Latitude Value
+		2.2 Longitude Value
+		2.3 Zoom Level
+
+
 
 

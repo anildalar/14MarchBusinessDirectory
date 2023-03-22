@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Container, Nav } from 'react-bootstrap'
+import { Link } from 'react-router-dom';
 import Footer from '../component/ui/Footer'
 import Header from '../component/ui/Header'
 
@@ -34,10 +35,10 @@ export default function Home() {
             {
                 businessCategory.map((cv,idx,arr)=>{
                     return  <li key={idx} className="me-3">
-                                <a href="#">
+                                <Link to="/search">
                                     <img src={'http://localhost:1337'+cv.attributes.image.data.attributes.url} /><br />
                                     {cv.attributes.name}
-                                </a>
+                                </Link>
                             </li>
                 })
             }

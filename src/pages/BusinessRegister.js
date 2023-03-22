@@ -1,7 +1,7 @@
 //1. Import Area
 import React, { useEffect, useState } from 'react'
 import { Button, Form } from 'react-bootstrap'
-import { URL } from '../helpers/url';
+import { URL } from '../helpers/helper';
 
 
 //2. Defination
