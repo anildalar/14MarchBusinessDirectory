@@ -123,4 +123,20 @@ HTML5 API
 
 
 
+How to Get GeoCoding API
+
+1. Go the https://console.cloud.google.com
+2. Signup with DebitCard / Credit Card 
+			2.1 Automatic payment and International Payment enabled
+	      2.2 Bank will send you e-mandate information
+
+
+3 .Create a Project
+4. Create Billing Account with Google Maps Platform
+5. Assign the project with created Billing Account
+6. Generate the Key
+7. Apply API restriction if needed
+
+
+
 

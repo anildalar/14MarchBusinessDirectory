@@ -35,7 +35,7 @@ export default function Home() {
             {
                 businessCategory.map((cv,idx,arr)=>{
                     return  <li key={idx} className="me-3">
-                                <Link to="/search">
+                                <Link to={"/search?cat_name="+cv.attributes.name}>
                                     <img src={'http://localhost:1337'+cv.attributes.image.data.attributes.url} /><br />
                                     {cv.attributes.name}
                                 </Link>

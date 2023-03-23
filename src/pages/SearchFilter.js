@@ -1,9 +1,31 @@
 import { faHome, faStar } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Badge, Button, Card, Col, ListGroup, Row } from 'react-bootstrap'
+import { useSearchParams } from 'react-router-dom'
+import { URL } from '../helpers/helper'
 
 export default function SearchFilter() {
+    //2.1
+    const [searchParams, setSearchParams] = useSearchParams()
+
+    useEffect(()=>{
+        console.log('cat_name-------->',searchParams.get('cat_name'));
+
+        fetch(`${URL}/api/businesses?populate=*&filters[business_categories][name][$containsi]=${searchParams.get('cat_name')}`)
+        .then(res=>res.json())
+        .then(data=>{
+            console.log(data);
+        })
+        .catch(err=>{
+            console.log(err)
+        })
+        //http://localhost:1337/api/businesses?populate=*&filters[business_categories][name][$containsi]=home decore
+    },[]);
+
+    //2.2
+
+
     return (
         <>
             <Row>

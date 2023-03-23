@@ -9,8 +9,8 @@ export default function Navigation() {
     //2.1 Hooks Area
     const [logo,setLogo] = useState('');
     const [address,setAddress] = useState('');
-    let x=document.getElementById("demo");;
     useEffect(()=>{
+        setAddress(window.localStorage.getItem('address'));
        // set Google Maps Geocoding API for purposes of quota management. Its optional but recommended.
         Geocode.setApiKey(GOOGLE_MAP_KEY);
 
@@ -57,8 +57,8 @@ export default function Navigation() {
             navigator.geolocation.getCurrentPosition(showPosition);
             
         } else {
-            x.value = "Geolocation is not supported by this browser.";
-          }
+           
+        }
     }
     let showPosition=(position)=>{
         console.log(position.coords.latitude);
@@ -67,19 +67,30 @@ export default function Navigation() {
         window.localStorage.setItem('long',position.coords.longitude);
 
          // Get address from latitude & longitude.
-        Geocode.fromLatLng(position.coords.latitude, position.coords.longitude ).then(
+        Geocode.fromLatLng(position.coords.latitude, position.coords.longitude ).then(res=>res.json()).then(
             (response) => {
-                //const address = response.results[0].formatted_address;
-                setAddress(response.results[0].formatted_address)
-                window.localStorage.setItem('address',response.results[0].formatted_address);
-                console.log(address);
+                console.log('response--------->',response);
+                if(response.results.length >0){
+                    var adrr = response.results[0].formatted_address;
+                    setAddress(adrr)
+                    window.localStorage.setItem('address',adrr);
+                    console.log(adrr);
+                }else{
+
+                    var addr = response.plus_code.compound_code;
+                    setAddress(addr)
+                    window.localStorage.setItem('address',addr);
+                    console.log(addr);
+                }
             },
             (error) => {
-            console.error(error);
+                
+                console.error('errror -------->',JSON.stringify(error));
             }
-        );
-        window.localStorage.setItem('addres', 'Indira Nagar Neemuch');
-        x.value = 'Indira Nagar Neemuch'; 
+        ).catch(err=>{
+            console.error('errror -------->',JSON.stringify(err));
+        });
+        
         //x.innerHTML = "Latitude: " + position.coords.latitude +
        //"<br>Longitude: " + position.coords.longitude;
     }
@@ -129,6 +140,7 @@ export default function Navigation() {
                                 type="text"
                                 readOnly
                                 disabled
+                                value={address}
                                 placeholder="Search"
                                 className="me-2"
                                 aria-label="Search"
