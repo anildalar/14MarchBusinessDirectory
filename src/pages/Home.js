@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Container, Nav } from 'react-bootstrap'
 import { Link } from 'react-router-dom';
-import Footer from '../component/ui/Footer'
-import Header from '../component/ui/Header'
 
 export default function Home() {
     //2.1 Hooks Area
