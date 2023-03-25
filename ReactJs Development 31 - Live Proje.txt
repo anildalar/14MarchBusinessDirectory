@@ -138,5 +138,10 @@ How to Get GeoCoding API
 7. Apply API restriction if needed
 
 
+a cannot contain a
+a contnot contain button
+button cannot contain button
+button cannot contain a
+
 
 
