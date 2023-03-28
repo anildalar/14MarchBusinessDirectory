@@ -2,7 +2,7 @@ import { faHome, faStar } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useEffect, useState } from 'react'
 import { Badge, Button, Card, Col, ListGroup, Row } from 'react-bootstrap'
-import { Link, useSearchParams } from 'react-router-dom'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { URL } from '../helpers/helper'
 
 import img from '../assets/img/1.png';
@@ -12,6 +12,8 @@ export default function SearchFilter() {
     const [businesses,setBusinesses] = useState([])
     const [searchParams, setSearchParams] = useSearchParams();
     const [star,setStar] = useState([])
+
+    const navigate = useNavigate();
 
     useEffect(()=>{
         console.log('cat_name-------->',searchParams.get('cat_name'));
@@ -43,9 +45,8 @@ export default function SearchFilter() {
                 <Col sm={9}>
                     <h1>Search Filter</h1>
                     {
-                        businesses.map((cv,idx,arr)=>{
-                           return  <Link key={idx} to={"/detail?hotel_id="+cv.id}>
-                                        <Card  className="p-3 mb-4">
+                        businesses && businesses.map((cv,idx,arr)=>{
+                           return  <Card key={idx}  className="p-3 mb-4" onClick={ ()=>{ navigate("/detail?business_id="+cv.id) } }>
                                             <Row>
                                                 <Col sm={3}>
                                                     {console.log('cv--->',cv)}
@@ -73,7 +74,6 @@ export default function SearchFilter() {
                                             </Row>
                                                      
                                     </Card>
-                                </Link>  
                         })
                     }
                       

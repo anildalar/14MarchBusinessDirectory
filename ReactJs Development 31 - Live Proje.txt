@@ -151,5 +151,16 @@ a contnot contain button
 button cannot contain button
 button cannot contain a
 
+Psuedo/Alogos Code
+1. OnHover get the element
+2. Get all the previous sibling
+3. Run the loop on all previous siblings
+4. Remvoe "text-secondary" on every sibling
+5. Add "text-warning" on every sibling 
+6. Get the rateValue
+
+
+https://www.w3schools.com/jsref/prop_node_previoussibling.asp
+https://www.w3schools.com/jsref/prop_element_previouselementsibling.asp
 
 
