@@ -68,6 +68,14 @@ https://just.netlify.app
 Topics to covered
 1. Localization/MultiLingual Website
 2. User Review/Testimonials and Rating
+	
+	2.1 Rate Scale (1-5) or (1-10)
+	2.2 Description
+	2.3 User
+	2.4 Business/Service/Product
+	Rating ------> User
+
+
 3.  GeoLocation HTML5 API
 4. APP_Info Single Content Type
      4.1 App Logo
