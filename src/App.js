@@ -1,6 +1,6 @@
 
 //1. Import Area
-import React from 'react'
+import React, { useEffect } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Layout from './component/ui/Layout'
 import BusinessRegister from './pages/BusinessRegister'
@@ -15,7 +15,11 @@ import SearchFilter from './pages/SearchFilter'
 //2. Defination Area
 export default function App() {
     //2.1 Hooks Area
-
+    useEffect(()=>{
+        if(window.localStorage.getItem('lang')=== null){
+            window.localStorage.setItem('lang','en')
+        }
+    },[]);
     if(window.localStorage.getItem('jwt_token') === null){
         return (
             <>
@@ -23,6 +27,7 @@ export default function App() {
             </>
         )
     }
+    
 
     //2.2 Function Defination Area
 

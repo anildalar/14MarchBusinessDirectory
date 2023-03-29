@@ -4,11 +4,13 @@ import Geocode from "react-geocode";
 import { Button, Container, Form, Nav, Navbar, NavDropdown } from 'react-bootstrap'
 import { Link } from 'react-router-dom';
 import { GOOGLE_MAP_KEY, URL } from '../../helpers/helper';
+import { language } from 'fontawesome';
 
 export default function Navigation() {
     //2.1 Hooks Area
     const [logo,setLogo] = useState('');
     const [address,setAddress] = useState('');
+
     useEffect(()=>{
         setAddress(window.localStorage.getItem('address'));
        // set Google Maps Geocoding API for purposes of quota management. Its optional but recommended.
@@ -48,6 +50,19 @@ export default function Navigation() {
     let myLogout=()=>{
         window.localStorage.removeItem('jwt_token')
         window.location.href = '/login';
+    }
+    let myLang =(e)=>{
+        //console.log(e.target.innerHTML);
+        let x = e.target.innerHTML
+        if(x == 'English'){
+            console.log('Hindi');
+            e.target.innerHTML = 'Hindi';
+            window.localStorage.setItem('lang','hi')
+        }else{
+            console.log('English')
+            e.target.innerHTML = 'English';
+            window.localStorage.setItem('lang','en')
+        } 
     }
    
 
@@ -116,6 +131,7 @@ export default function Navigation() {
                             navbarScroll
                         >
                             <Link to="/" className="btn btn-link">Home</Link>
+                            
                             {
                        
                                 window.localStorage.getItem('jwt_token') === null &&
@@ -124,10 +140,12 @@ export default function Navigation() {
                                     <Link to="/register" className="btn btn-link">Register</Link>
                                 </>
                             }
+                            <Nav.Link onClick={(e)=>{  myLang(e)   }} className="btn btn-link">English</Nav.Link>
                             {
                        
                                 window.localStorage.getItem('jwt_token') !== null &&
                                 <>
+
                                     <Link className="btn btn-link" to="/business_register">Register Business</Link>
                                     <Nav.Link onClick={()=>{  myLogout()   }} className="btn btn-link">Logout</Nav.Link>
                                 </>

@@ -16,6 +16,7 @@ export default function SearchFilter() {
     const navigate = useNavigate();
 
     useEffect(()=>{
+        let lang = window.localStorage.getItem('lang');
         console.log('cat_name-------->',searchParams.get('cat_name'));
 
         fetch(`${URL}/api/businesses?populate=*&filters[business_categories][name][$containsi]=${searchParams.get('cat_name')}`)
@@ -23,11 +24,6 @@ export default function SearchFilter() {
         .then(data=>{
             console.log('data.data -------->',data.data);
             setBusinesses(data.data);
-            for (let index = 1; index < data.data.attributes.star; index++) {
-                setStar([...star,<FontAwesomeIcon icon={faStar} className="text-warning" />])
-                
-            }
-           
             
         })
         .catch(err=>{
@@ -75,10 +71,7 @@ export default function SearchFilter() {
                                                      
                                     </Card>
                         })
-                    }
-                      
-                    
-                    
+                    } 
                 </Col>
                 <Col sm={3}>
                     <Card style={{ width: '18rem' }}>

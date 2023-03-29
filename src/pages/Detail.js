@@ -23,6 +23,7 @@ export default function Detail() {
     const [busPhotos,setBusPhotos] = useState([]);
     const [busName,setBusName] = useState('');
     useEffect(()=>{
+        let lang = window.localStorage.getItem('lang');
         setReviewPayload({
             ...reviewPayload,
             data:{
@@ -37,7 +38,7 @@ export default function Detail() {
 
         console.log('business_id-------->',searchParams.get('business_id'));
         let businessid = searchParams.get('business_id');
-        fetch(`${URL}/api/businesses?populate=*&filters[id][$eq]=`+businessid)
+        fetch(`${URL}/api/businesses?locale=hi&populate=*&filters[id][$eq]=`+businessid)
         .then(res=>res.json())
         .then(data=>{
            console.log('business details-------->',data)

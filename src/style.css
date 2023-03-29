@@ -10,6 +10,10 @@ main{
     min-height: 1000px;
     border:1px dashed green;
 }
+
+div.card:hover{
+    cursor: pointer;
+}
 footer{
     height: 200px;
     border:1px dashed orange;
