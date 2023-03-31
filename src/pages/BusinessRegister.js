@@ -163,7 +163,7 @@ export default function BusinessRegister() {
                     <Form.Select name="country_id" aria-label="Default select example" onChange={(e)=>{ getStates(e) }}>
                         {
                             //array.map(function(currentValue, index, arr), thisValue)
-                            countries.map((cv,idx,arr)=>{ 
+                            countries && countries.map((cv,idx,arr)=>{ 
                                 return <option key={idx} value={cv.id}>{cv.attributes.name}</option>
                             })
                         }
@@ -171,7 +171,7 @@ export default function BusinessRegister() {
                     </Form.Select>
                 </Form.Group>
                 {
-                    states.length !== 0 &&
+                    states &&
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>State</Form.Label>
                         <Form.Select name="state_id" aria-label="Default select example" onChange={(e)=>{ getCities(e) }}>
@@ -186,7 +186,7 @@ export default function BusinessRegister() {
                     </Form.Group>
                 }
                 {
-                    cities.length !== 0 &&
+                    cities &&
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>City</Form.Label>
                         <Form.Select name="city_id" aria-label="Default select example">
@@ -206,7 +206,7 @@ export default function BusinessRegister() {
                     <Form.Select name="bus_cat_id" aria-label="Default select example">
                         {
                             //array.map(function(currentValue, index, arr), thisValue)
-                            businessCategories.map((cv,idx,arr)=>{ 
+                            businessCategories && businessCategories.map((cv,idx,arr)=>{ 
                                 return <option key={idx} value={cv.id}>{cv.attributes.name}</option>
                             })
                         }
@@ -216,7 +216,7 @@ export default function BusinessRegister() {
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Business Name</Form.Label>
                     <Form.Control name="business_name" type="text" placeholder="Enter Business Name" />
-                    <Form.Text className="text-muted">
+                        <Form.Text className="text-muted">
                     </Form.Text>
                 </Form.Group>
                             

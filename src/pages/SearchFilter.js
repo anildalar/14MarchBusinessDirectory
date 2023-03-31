@@ -19,7 +19,7 @@ export default function SearchFilter() {
         let lang = window.localStorage.getItem('lang');
         console.log('cat_name-------->',searchParams.get('cat_name'));
 
-        fetch(`${URL}/api/businesses?populate=*&filters[business_categories][name][$containsi]=${searchParams.get('cat_name')}`)
+        fetch(`${URL}/api/businesses?populate=*&filters[business_category][name][$containsi]=${searchParams.get('cat_name')}`)
         .then(res=>res.json())
         .then(data=>{
             console.log('data.data -------->',data.data);
@@ -46,7 +46,7 @@ export default function SearchFilter() {
                                             <Row>
                                                 <Col sm={3}>
                                                     {console.log('cv--->',cv)}
-                                                    <Card.Img className="img-fluid" variant="top" src={ (cv.attributes.photo.data !== null) ?URL+cv.attributes.photo.data[0].attributes.url :img} />
+                                                    <Card.Img className="img-fluid" variant="top" src={img} />
                                                     
                                                 </Col>
                                                 <Col sm={9}>

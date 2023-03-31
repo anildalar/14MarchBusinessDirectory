@@ -66,7 +66,12 @@ https://just.netlify.app
 
 
 Topics to covered
-1. Localization/MultiLingual Website
+1. Localization/MultiLingual/Internationalization Website
+	1.1  All the multilnagage content will get from server
+	1.2  Label will be converted from ReactJS itself i18Next Library
+
+	Locales
+	
 2. User Review/Testimonials and Rating
 	
 	2.1 Rate Scale (1-5) or (1-10)
@@ -162,5 +167,30 @@ Psuedo/Alogos Code
 
 https://www.w3schools.com/jsref/prop_node_previoussibling.asp
 https://www.w3schools.com/jsref/prop_element_previouselementsibling.asp
+
+
+Roles and Permission
+
+	1. StrapiAdmin
+	2. JustDailAdmin
+	3. CustomerExecutive
+	4. BusinessAdmin
+	5. Moderator
+
+
+npx create-strapi-app@latest projectName 
+
+Comunity Edition
+
+Role
+	1.Super Admin
+	2.Editor
+	3.Author
+
+Strapi Community Edition to Enterprise Edition
+
+/strapi-crack-ee(Enterprise Edition)
+			
+	
 
 
