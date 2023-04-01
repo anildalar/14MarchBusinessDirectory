@@ -48,21 +48,29 @@ export default function Navigation() {
     
     //2.2 function defination area
     let myLogout=()=>{
-        window.localStorage.removeItem('jwt_token')
+        window.localStorage.clear()
         window.location.href = '/login';
     }
     let myLang =(e)=>{
-        //console.log(e.target.innerHTML);
+        console.log(e.target.innerHTML);
         let x = e.target.innerHTML
-        if(x == 'English'){
+        if(x === 'English'){
             console.log('Hindi');
             e.target.innerHTML = 'Hindi';
-            window.localStorage.setItem('lang','hi')
+            window.localStorage.setItem('lang','hi');
+            window.localStorage.setItem('langText','Hindi');
+            // window.location.reload();
+            
         }else{
             console.log('English')
             e.target.innerHTML = 'English';
-            window.localStorage.setItem('lang','en')
+            window.localStorage.setItem('lang','en');
+            window.localStorage.setItem('langText','English');
+            //window.location.reload();
         } 
+        window.location.reload();
+        
+        
     }
    
 
@@ -140,7 +148,7 @@ export default function Navigation() {
                                     <Link to="/register" className="btn btn-link">Register</Link>
                                 </>
                             }
-                            <Nav.Link onClick={(e)=>{  myLang(e)   }} className="btn btn-link">English</Nav.Link>
+                            <Nav.Link onClick={(e)=>{  myLang(e)   }} className="btn btn-link">{window.localStorage.getItem('langText')}</Nav.Link>
                             {
                        
                                 window.localStorage.getItem('jwt_token') !== null &&

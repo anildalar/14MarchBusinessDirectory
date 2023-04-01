@@ -18,3 +18,11 @@ footer{
     height: 200px;
     border:1px dashed orange;
 }
+
+.modal-backdrop{
+    backdrop-filter: blur(50px);
+    background-color: #01223770;
+ }
+ .modal-backdrop.in{
+    opacity: 1 !important;
+ }

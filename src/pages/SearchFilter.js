@@ -1,7 +1,7 @@
 import { faHome, faStar } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useEffect, useState } from 'react'
-import { Badge, Button, Card, Col, ListGroup, Row } from 'react-bootstrap'
+import { Badge, Button, Card, Col, Dropdown, ListGroup, Modal, Row } from 'react-bootstrap'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { URL } from '../helpers/helper'
 
@@ -12,6 +12,11 @@ export default function SearchFilter() {
     const [businesses,setBusinesses] = useState([])
     const [searchParams, setSearchParams] = useSearchParams();
     const [star,setStar] = useState([])
+
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     const navigate = useNavigate();
 
@@ -33,13 +38,79 @@ export default function SearchFilter() {
     },[]);
 
     //2.2
+    let getBusinessByRating = (e)=>{
+        //alert('OKOKOK');
+        console.log(e.target.getAttribute("data-star"));
+        let star = e.target.getAttribute("data-star");
+        fetch(`${URL}/api/businesses?locale=en&&filters[business_category][name][$containsi]=Hotel&filters[star][$eq]=`+star)
+        .then(res=>res.json())
+        .then(data=>{
+            console.log(data)
+            setBusinesses(data.data);
+        })
+        .catch(err=>{
+            console.log(err)
+        });
+    }
 
 
     return (
         <>
+             <Modal  size="lg" show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>All Filters</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div>
+                        <h3>Star Rating</h3>
+                        <Button variant="light" data-star="5" onClick={(e)=>{ getBusinessByRating(e) }}>5 Star</Button>{' '}
+                        <Button variant="light" data-star="4" onClick={(e)=>{ getBusinessByRating(e) }}>4 Start</Button>{' '}
+                        <Button variant="light" data-star="3" onClick={(e)=>{ getBusinessByRating(e) }}>3 Start</Button>{' '}
+                        <Button variant="light" data-star="2" onClick={(e)=>{ getBusinessByRating(e) }}>2 Start</Button>{' '}
+                        <Button variant="light" data-star="1" onClick={(e)=>{ getBusinessByRating(e) }}>1 Start</Button>{' '}
+                    </div>
+
+                </Modal.Body>
+                <Modal.Footer>
+                <Button variant="secondary" onClick={handleClose}>
+                    Close
+                </Button>
+                <Button variant="primary" onClick={handleClose}>
+                    Save Changes
+                </Button>
+                </Modal.Footer>
+            </Modal>
+            <Row>
+                <Col sm={12} className="">
+                    <Dropdown className="float-start mt-4 mb-4 ms-1">
+                        <Dropdown.Toggle variant="light" id="dropdown-basic">
+                            Rating
+                        </Dropdown.Toggle>
+
+                        <Dropdown.Menu>
+                            <Dropdown.Item data-star="5" onClick={(e)=>{ getBusinessByRating(e) }}>5 Rating</Dropdown.Item>
+                            <Dropdown.Item data-star="4" onClick={(e)=>{ getBusinessByRating(e) }}>4 Rating</Dropdown.Item>
+                            <Dropdown.Item data-star="3" onClick={(e)=>{ getBusinessByRating(e) }}>3 Rating</Dropdown.Item>
+                            <Dropdown.Item data-star="2" onClick={(e)=>{ getBusinessByRating(e) }}>2 Rating</Dropdown.Item>
+                            <Dropdown.Item data-star="1" onClick={(e)=>{ getBusinessByRating(e) }}>1 Rating</Dropdown.Item>
+                        </Dropdown.Menu>
+                    </Dropdown>
+                    <Dropdown className="float-start mt-4 mb-4 ms-2">
+                        <Dropdown.Toggle variant="light" id="dropdown-basic">
+                            Price
+                        </Dropdown.Toggle>
+
+                        <Dropdown.Menu>
+                            <Dropdown.Item href="#/action-1">High to Low</Dropdown.Item>
+                            <Dropdown.Item href="#/action-1">Low to High</Dropdown.Item>
+                        </Dropdown.Menu>
+                    </Dropdown>
+                    <Button variant="light" className="float-end mt-4 mb-4 ms-2 "  onClick={handleShow}>All Filters</Button>
+                </Col>
+            </Row>
             <Row>
                 <Col sm={9}>
-                    <h1>Search Filter</h1>
+                   
                     {
                         businesses && businesses.map((cv,idx,arr)=>{
                            return  <Card key={idx}  className="p-3 mb-4" onClick={ ()=>{ navigate("/detail?business_id="+cv.id) } }>
@@ -52,7 +123,7 @@ export default function SearchFilter() {
                                                 <Col sm={9}>
                                                     <Card.Body>
                                                         <Card.Title>{cv.attributes.name}</Card.Title>
-                                                        <Badge className="p-2 fs-4"  bg="success">3.9</Badge> 
+                                                        <Badge className="p-2 fs-4"  bg="success">{cv.attributes.star}</Badge> 
                                                         <span>
                                                                 {
                                                                     star.map((cv2,idx2,arr2)=>{
