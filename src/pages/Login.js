@@ -1,6 +1,6 @@
 //1. Import Area
 import React from 'react'
-import { Button, Form } from 'react-bootstrap'
+import { Button, Container, Form } from 'react-bootstrap'
 
 
 //2. Defination Areaa
@@ -54,6 +54,8 @@ export default function Login() {
     //2.3 Return statemnt
     return (
         <>
+        <Container className="mt-5">
+
             <h1 className="text-center">Login Page</h1>
             <Form>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -71,6 +73,7 @@ export default function Login() {
                     Submit
                 </Button>
             </Form>
+        </Container>
         </>
     )
 }

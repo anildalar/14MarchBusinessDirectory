@@ -138,7 +138,6 @@ export default function Navigation() {
                             style={{ maxHeight: '100px' }}
                             navbarScroll
                         >
-                            <Link to="/" className="btn btn-link">Home</Link>
                             
                             {
                        

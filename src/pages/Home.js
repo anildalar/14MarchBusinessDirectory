@@ -75,9 +75,9 @@ export default function Home() {
         <ul className="nav">
             {
                 businessCategory && businessCategory.map((cv,idx,arr)=>{
-                    return  <li key={idx} className="me-3">
-                                <Link to={"/search?cat_name="+cv.attributes.name}>
-                                    <img src={'http://localhost:1337'+cv.attributes.image.data.attributes.url} /><br />
+                    return  <li key={idx} className="me-3 border rounded text-center p-2">
+                                <Link className=" text-decoration-none" to={"/search?cat_name="+cv.attributes.name}>
+                                    <img className="d-block" width="60" src={'http://localhost:1337'+cv.attributes.image.data.attributes.url} />
                                     {cv.attributes.name}
                                 </Link>
                             </li>

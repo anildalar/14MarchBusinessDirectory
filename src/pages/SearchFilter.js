@@ -13,6 +13,8 @@ export default function SearchFilter() {
     const [searchParams, setSearchParams] = useSearchParams();
     const [star,setStar] = useState([])
 
+    const [pagination,setPagination] = useState({})
+
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
@@ -21,23 +23,52 @@ export default function SearchFilter() {
     const navigate = useNavigate();
 
     useEffect(()=>{
+        //Lets trake for scroll event
+        //element.addEventListener(event, function, useCapture);
+        //object.addEventListener("scroll", myScript);
+        window.addEventListener('scroll',()=>{
+            //console.log(document.documentElement);
+            //destructuring
+            const { scrollTop,scrollHeight, clientHeight } = document.documentElement;
+            console.log('scrollTop   ---->',scrollTop);
+            console.log('clientHeight---->',clientHeight);
+
+            console.log('scrollHeight---->',scrollHeight);
+            
+            if (scrollTop + clientHeight >= scrollHeight - 20){
+                //Call the page with next page
+                console.log('pagination---->',pagination);
+                getBusiness((pagination.page<pagination.pageCount)?(pagination.page+1):1);
+            }
+        });
+
+
         let lang = window.localStorage.getItem('lang');
         console.log('cat_name-------->',searchParams.get('cat_name'));
+        getBusiness(1);
 
-        fetch(`${URL}/api/businesses?populate=*&filters[business_category][name][$containsi]=${searchParams.get('cat_name')}`)
+        
+        //http://localhost:1337/api/businesses?populate=*&filters[business_categories][name][$containsi]=home decore
+    },[]);
+
+    //2.2
+    let getBusiness=(page=1,pageSize=3)=>{ //formal argument with default value
+        fetch(`${URL}/api/businesses?populate=*&filters[business_category][name][$containsi]=${searchParams.get('cat_name')}&pagination[page]=${page}&pagination[pageSize]=${pageSize}`)
         .then(res=>res.json())
         .then(data=>{
             console.log('data.data -------->',data.data);
-            setBusinesses(data.data);
+            setBusinesses([
+                ...businesses,
+                ...data.data
+            ]);
+            setPagination(data.meta.pagination);
             
         })
         .catch(err=>{
             console.log(err)
         })
-        //http://localhost:1337/api/businesses?populate=*&filters[business_categories][name][$containsi]=home decore
-    },[]);
+    }
 
-    //2.2
     let getBusinessByRating = (e)=>{
         //alert('OKOKOK');
         console.log(e.target.getAttribute("data-star"));
@@ -131,7 +162,7 @@ export default function SearchFilter() {
                                                                     })
                                                                 }
                                                         </span>
-                                                        <span>5,551 Rating</span>
+                                                        <span>{cv.attributes.reviews.data.length} Rating</span>
                                                         <Card.Text>
                                                         {cv.attributes.desc}
                                                         </Card.Text>
