@@ -209,6 +209,14 @@ pageSize
 pageCount
 Total
 			
+
+
+Lets write the PsudoCode/Algos
+1. Get the scroll value
+2. IF we get to altest 70% to the bottom scoll
+		2.1 Check if you are not on the last page
+		2.2 Call the API
+		2.3 Also update the pagination meta data i.e pageNo			
 	
 
 
