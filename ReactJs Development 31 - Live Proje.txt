@@ -197,6 +197,17 @@ https://www.justdial.com/Neemuch/Pure-Veg-Thali-Restaurants/nct-10396872
 https://www.justdial.com/City/BusinessName-slug-Address-Slug
 
 https://www.justdial.com/City/CategoryOrSubCategory
+
+
+
+Pagination/ Infinite Scroll/Lazy Loading
+
+PerPage 10/20/30 Records/Hotel
+
+page
+pageSize
+pageCount
+Total
 			
 	
 
