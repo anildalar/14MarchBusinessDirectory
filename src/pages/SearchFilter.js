@@ -22,7 +22,7 @@ export default function SearchFilter() {
 
     const navigate = useNavigate();
 
-    useEffect(()=>{
+    useEffect(()=>{ //After Page Load
         //Lets trake for scroll event
         //element.addEventListener(event, function, useCapture);
         //object.addEventListener("scroll", myScript);
@@ -35,33 +35,49 @@ export default function SearchFilter() {
 
             console.log('scrollHeight---->',scrollHeight);
             
-            if (scrollTop + clientHeight >= scrollHeight - 20){
+            if (scrollTop + clientHeight >= scrollHeight - 200){ //70% bottom scroll
                 //Call the page with next page
                 console.log('pagination---->',pagination);
-                getBusiness((pagination.page<pagination.pageCount)?(pagination.page+1):1);
+
+                //Lets check if we are not on the last page
+                if(pagination.page<pagination.pageCount){
+                    console.log('API Called************************************');
+                    getBusiness(pagination.page+1);
+                    ////2.2 Call the API
+                    
+
+                    //2.3 Also update the pagination meta data i.e pageNo
+                    /* setPagination({
+                        ...pagination,
+                        page:pagination.page+1
+                    }) */
+
+                }
+               /*  ; *///Overwrite
             }
         });
 
 
         let lang = window.localStorage.getItem('lang');
         console.log('cat_name-------->',searchParams.get('cat_name'));
-        getBusiness(1);
+        getBusiness();
 
         
         //http://localhost:1337/api/businesses?populate=*&filters[business_categories][name][$containsi]=home decore
     },[]);
 
     //2.2
-    let getBusiness=(page=1,pageSize=3)=>{ //formal argument with default value
+    let getBusiness=(page=1,pageSize=10)=>{ //formal argument with default value
         fetch(`${URL}/api/businesses?populate=*&filters[business_category][name][$containsi]=${searchParams.get('cat_name')}&pagination[page]=${page}&pagination[pageSize]=${pageSize}`)
         .then(res=>res.json())
         .then(data=>{
             console.log('data.data -------->',data.data);
             setBusinesses([
-                ...businesses,
-                ...data.data
+                ...businesses, // []
+                ...data.data  // [{},{}]
             ]);
-            setPagination(data.meta.pagination);
+
+            setPagination(data.meta.pagination);//Overwrite
             
         })
         .catch(err=>{
