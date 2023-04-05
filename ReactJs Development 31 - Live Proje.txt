@@ -89,7 +89,14 @@ Topics to covered
       4.4 App Youtube
       4.5 App Linkdin
       4.6 App Instagram
-5. Busniess Enquiry System
+5. Busniess Enquiry System - Done
+		fname
+		mname
+		lname
+		mobno
+		email
+
+		
 6. Google Map Location of Business
 7.  Business Filtering Page
 8.  Career Apply For
@@ -204,19 +211,22 @@ Pagination/ Infinite Scroll/Lazy Loading
 
 PerPage 10/20/30 Records/Hotel
 
+pagination MetaData
+
+
 page
 pageSize
 pageCount
 Total
 			
 
+For Pagination/Lazy Loading/Infinite Scroll
 
-Lets write the PsudoCode/Algos
-1. Get the scroll value
-2. IF we get to altest 70% to the bottom scoll
-		2.1 Check if you are not on the last page
-		2.2 Call the API
-		2.3 Also update the pagination meta data i.e pageNo			
+You need to have lots of data in backend system
+
+
+
+
 	
 
 

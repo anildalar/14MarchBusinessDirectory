@@ -38,6 +38,12 @@ export default function Login() {
                 window.localStorage.setItem('langText','English');
                 window.localStorage.setItem('jwt_token',data["jwt"])
                 window.localStorage.setItem('user_id',data["user"].id)
+
+                window.localStorage.setItem('fname',data["user"].fname)
+                window.localStorage.setItem('mname',data["user"].mname)
+                window.localStorage.setItem('lname',data["user"].lname)
+                window.localStorage.setItem('mobno',data["user"].mobno)
+                window.localStorage.setItem('email',data["user"].email)
             }else{
                 //Login Fail
                 alert("Bheed Kam");

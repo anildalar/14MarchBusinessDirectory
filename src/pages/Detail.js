@@ -1,12 +1,22 @@
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react'
-import { Button, Carousel, Form } from 'react-bootstrap'
+import { Button, Carousel, Col, Form, Modal, Row } from 'react-bootstrap'
 import { useSearchParams } from 'react-router-dom';
 import { URL } from '../helpers/helper';
+import swal from 'sweetalert';
 
 export default function Detail() {
     //2.1 Hooks area
+    const [mobno, setMobno] = useState("");
+
+
+    const [businessid,setBusinessid] = useState('')
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
     const [searchParams, setSearchParams] = useSearchParams();
     const [reviewPayload,setReviewPayload] = useState({
                                                             "data": {
@@ -24,6 +34,7 @@ export default function Detail() {
     const [busName,setBusName] = useState('');
     useEffect(()=>{
         let lang = window.localStorage.getItem('lang');
+        setMobno(window.localStorage.getItem('mobno'));
         setReviewPayload({
             ...reviewPayload,
             data:{
@@ -37,8 +48,9 @@ export default function Detail() {
         //svg.addEventListener('mouseover', () => console.log('Event: mouseover'));
 
         console.log('business_id-------->',searchParams.get('business_id'));
-        let businessid = searchParams.get('business_id');
-        fetch(`${URL}/api/businesses?locale=hi&populate=*&filters[id][$eq]=`+businessid)
+        //let businessid = searchParams.get('business_id');
+        setBusinessid(searchParams.get('business_id'));
+        fetch(`${URL}/api/businesses?locale=${lang}&populate=*&filters[id][$eq]=`+businessid)
         .then(res=>res.json())
         .then(data=>{
            console.log('business details-------->',data)
@@ -178,11 +190,85 @@ export default function Detail() {
 
     }
 
+    let submitEnquiry = (e) =>{
+        //alert('IJIJIJJIJ');
+        let payload = {
+            "data": {
+              "fname": window.localStorage.getItem('fname'),
+              "mname": window.localStorage.getItem('mname'),
+              "lname": window.localStorage.getItem('lname'),
+              "mobno": mobno,
+              "email": window.localStorage.getItem('email'),
+              "business": businessid,
+              "users_permissions_user": window.localStorage.getItem('user_id'),
+              "locale":  window.localStorage.getItem('lang'),
+            }
+        }
+        fetch(`${URL}/api/enquiries`,{
+            method:"POST",
+            headers:{
+                "Content-Type": "application/json"
+            },
+            body:JSON.stringify(payload)
+        })
+        .then(res=>res.json())
+        .then(data=>{
+            console.log(data);
+            setShow(false);
+            swal("Enquiry Sent Successfully!", "!", "success");
+        })
+        .catch(err => {
+            console.log('err', err);
+        });
+    }
+
     //2.3
     return (
         <>
+            <Modal  size="lg" show={show} onHide={handleClose}>
+               {/*  <Modal.Header closeButton>
+                 <Modal.Title>Modal heading</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+                <Modal.Footer>
+                <Button variant="secondary" onClick={handleClose}>
+                    Close
+                </Button>
+                <Button variant="primary" onClick={handleClose}>
+                    Save Changes
+                </Button>
+                </Modal.Footer> */}
+                 <Row className="p-5">
+                    <Col xs={7}>
+                        <h3>Are you looking for?</h3>
+                        <Form>
+                            <Form.Group className="mb-3" controlId="formBasicEmail">
+                                <Form.Label>Name</Form.Label>
+                                <Form.Control type="text" placeholder="" value={window.localStorage.getItem('fname')+" "+window.localStorage.getItem('mname')+" "+window.localStorage.getItem('lname')} />
+                               
+                            </Form.Group>
+                            <Form.Group className="mb-3" controlId="formBasicEmail">
+                                <Form.Label>Mobile No.</Form.Label>
+                                <Form.Control type="text" placeholder=""  value={mobno} onChange={(e) => setMobno(e.target.value)} />
+                               
+                            </Form.Group>
+                            <Form.Group className="mb-3" controlId="formBasicEmail">
+                                <Form.Label>Email</Form.Label>
+                                <Form.Control type="email" placeholder="" value={window.localStorage.getItem('email')} />
+                               
+                            </Form.Group>
+
+                            <Button variant="primary" type="button" onClick={(e)=>{ submitEnquiry(e) }}>
+                                Send Enquiry
+                            </Button>
+                        </Form>
+                    </Col>
+                    <Col xs={5}>2</Col>
+                </Row>
+
+            </Modal>
             <h1>Detail Page</h1>
-            <h2>{busName}</h2>
+            <h2>{busName} <Button className="float-end"  variant="primary" onClick={handleShow}>Enquire Now</Button> </h2>
             <Carousel className="w-75"  indicators={false}>
                 {
                     busPhotos && busPhotos.map((cv,idx,arr)=>{
