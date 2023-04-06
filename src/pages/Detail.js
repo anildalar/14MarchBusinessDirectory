@@ -1,22 +1,21 @@
+//1. Import Area
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react'
 import { Button, Carousel, Col, Form, Modal, Row } from 'react-bootstrap'
 import { useSearchParams } from 'react-router-dom';
+
 import { URL } from '../helpers/helper';
+import parse from 'html-react-parser';
 import swal from 'sweetalert';
 
+//2 Definatio Area
 export default function Detail() {
     //2.1 Hooks area
+    const [content,setContent] = useState('');
     const [mobno, setMobno] = useState("");
-
-
     const [businessid,setBusinessid] = useState('')
     const [show, setShow] = useState(false);
-
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-
     const [searchParams, setSearchParams] = useSearchParams();
     const [reviewPayload,setReviewPayload] = useState({
                                                             "data": {
@@ -28,11 +27,38 @@ export default function Detail() {
                                                                 "users_permissions_user": 2
                                                             }
                                                         });
-
     const [busDetail,setBusDetail] = useState([]);
     const [busPhotos,setBusPhotos] = useState([]);
     const [busName,setBusName] = useState('');
+    
+    
+    //On page load
     useEffect(()=>{
+        document.addEventListener("click", async function(e){
+           // const target = e.target.closest("#"); // Or any other selector.
+            console.log(e.target.classList.contains("anilupload"))
+
+            if(e.target.classList.contains("anilfile")){
+                //alert('OK');
+                e.target.setAttribute("onChange", function ani(e){
+                    //let file = this.files[0];
+                    console.log('file', e.target)
+                });
+            }
+            if(e.target.classList.contains("anilupload")){
+                //alert('Yes you can upload the file now');
+                const file = '';
+                const form = new FormData();
+                form.append('files', file);
+            
+                const response = await fetch('http://localhost:1337/api/upload', {
+                    method: 'post',
+                    body: form,
+                });
+            }
+        }); 
+
+
         let lang = window.localStorage.getItem('lang');
         setMobno(window.localStorage.getItem('mobno'));
         setReviewPayload({
@@ -70,6 +96,79 @@ export default function Detail() {
     },[]);
 
     //2.2
+    const handleClose = () => setShow(false);
+    function readURL(input) {
+        alert('Heyyyyyyy!!!!');
+        //console.log(input);
+       // var url = input.value;
+        //var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
+        /* if (input.files && input.files[0]&& (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg")) {
+            var reader = new FileReader();
+        
+            reader.onload = function (e) {
+                $('#img').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+        else{
+             $('#img').attr('src', '/assets/no_preview.png');
+        } */
+    }
+    const handleShow = (action) => {
+        //Function body
+      
+        if(action==='enquiry'){
+            setContent( `<Row className="p-5">
+                            <Col xs={7}>
+                                <h3>Are you looking for?</h3>
+                                <Form className="model-content-form">
+                                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                                        <Form.Label>Name</Form.Label>
+                                        <Form.Control type="text" placeholder="" value={window.localStorage.getItem('fname')+" "+window.localStorage.getItem('mname')+" "+window.localStorage.getItem('lname')} />
+                                    
+                                    </Form.Group>
+                                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                                        <Form.Label>Mobile No.</Form.Label>
+                                        <Form.Control type="text" placeholder=""  value={mobno} onChange={(e) => setMobno(e.target.value)} />
+                                    
+                                    </Form.Group>
+                                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                                        <Form.Label>Email</Form.Label>
+                                        <Form.Control type="email" placeholder="" value={window.localStorage.getItem('email')} />
+                                    
+                                    </Form.Group>
+
+                                    <Button variant="primary" type="button" onClick={(e)=>{ submitEnquiry(e) }}>
+                                        Send Enquiry
+                                    </Button>
+                                </Form>
+                            </Col>
+                            <Col xs={5}>2</Col>
+                        </Row>`);
+        }else if(action==='upload'){
+            setContent( `<form class="a_upload_form p-5">
+                            <label for="images" class="drop-container">
+                                <span class="drop-title">Drop files here</span>
+                                or
+                                <input type="file" class="anilfile" id="images" accept="image/*" required onChange="readURL(this)">
+                            </label>
+                            <label class="w-100 mt-3">
+                                <textarea class="form-control w-100" id="exampleFormControlTextarea1" placeholder="Captions help others Identify Whats in the Photos"></textarea>
+                            </label>
+                            <label class="w-100 mt-3 text-center">
+                                <input class="btn btn-primary w-50 anilupload" type="button" value="Upload">
+                            </label>
+                        </form>`);
+        }else{
+
+        }
+        setShow(true)
+    };
+
+    const uploadImage = ()=>{
+        alert('Hello');
+    }
+
     const handleSubmit = (value) => {
         //evt.preventDefault();
         console.log(value);
@@ -83,6 +182,7 @@ export default function Detail() {
         });
 
     }
+
     function matches(elem, filter) {
         if (elem && elem.nodeType === 1) {
           if (filter) {
@@ -92,6 +192,7 @@ export default function Detail() {
         }
         return false;
     }
+
     function getPreviousSiblings(elem, filter) {
         var sibs = [];
         while (elem = elem.previousSibling) {
@@ -101,6 +202,7 @@ export default function Detail() {
         }
         return sibs;
     }
+
     function getAllSiblings(elem, filter) {
         var sibs = [];
         elem = elem.parentNode.firstChild;
@@ -110,7 +212,8 @@ export default function Detail() {
           }
         } 
         return sibs;
-      }
+    }
+
     let star2=(e)=>{
         console.log(e.target);
         console.log(e.target.classList);
@@ -125,6 +228,7 @@ export default function Detail() {
             element.classList.add("text-secondary")
         });
     }
+
     let star = (e)=>{
         
         console.log(e.target);
@@ -226,49 +330,13 @@ export default function Detail() {
     return (
         <>
             <Modal  size="lg" show={show} onHide={handleClose}>
-               {/*  <Modal.Header closeButton>
-                 <Modal.Title>Modal heading</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
-                <Modal.Footer>
-                <Button variant="secondary" onClick={handleClose}>
-                    Close
-                </Button>
-                <Button variant="primary" onClick={handleClose}>
-                    Save Changes
-                </Button>
-                </Modal.Footer> */}
-                 <Row className="p-5">
-                    <Col xs={7}>
-                        <h3>Are you looking for?</h3>
-                        <Form>
-                            <Form.Group className="mb-3" controlId="formBasicEmail">
-                                <Form.Label>Name</Form.Label>
-                                <Form.Control type="text" placeholder="" value={window.localStorage.getItem('fname')+" "+window.localStorage.getItem('mname')+" "+window.localStorage.getItem('lname')} />
-                               
-                            </Form.Group>
-                            <Form.Group className="mb-3" controlId="formBasicEmail">
-                                <Form.Label>Mobile No.</Form.Label>
-                                <Form.Control type="text" placeholder=""  value={mobno} onChange={(e) => setMobno(e.target.value)} />
-                               
-                            </Form.Group>
-                            <Form.Group className="mb-3" controlId="formBasicEmail">
-                                <Form.Label>Email</Form.Label>
-                                <Form.Control type="email" placeholder="" value={window.localStorage.getItem('email')} />
-                               
-                            </Form.Group>
-
-                            <Button variant="primary" type="button" onClick={(e)=>{ submitEnquiry(e) }}>
-                                Send Enquiry
-                            </Button>
-                        </Form>
-                    </Col>
-                    <Col xs={5}>2</Col>
-                </Row>
-
+                {parse(content)}
             </Modal>
             <h1>Detail Page</h1>
-            <h2>{busName} <Button className="float-end"  variant="primary" onClick={handleShow}>Enquire Now</Button> </h2>
+            <h2>{busName} <Button className="float-end"  variant="primary" onClick={()=>{ handleShow('enquiry') }}>Enquire Now</Button> </h2>
+
+            <div className="clearfix"></div>
+
             <Carousel className="w-75"  indicators={false}>
                 {
                     busPhotos && busPhotos.map((cv,idx,arr)=>{
@@ -286,6 +354,8 @@ export default function Detail() {
                
                 
             </Carousel>
+            <hr />
+            <Button variant="primary" onClick={()=>{ handleShow('upload') }}>Upload Photos</Button>
             <Form>
                 
                 <Form.Group className="mb-3 mt-5">

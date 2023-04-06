@@ -97,11 +97,22 @@ Topics to covered
 		email
 
 		
-6. Google Map Location of Business
-7.  Business Filtering Page
-8.  Career Apply For
+6. Google Map Location of Business - Done
+7.  Business Filtering Page        - Done
+8.  Career Apply For      
 9. All Pages 
 10. Business Upload Photo by Guest/Loggedin User System
+		(FileUploading in ReactJS)	
+		POST > BODY > FORMDATA	
+
+		https://docs.strapi.io/dev-docs/plugins/upload
+
+let object = new ClassName();
+
+let fd = new FormData()
+
+
+
 11. Work on Protected APIs - Done
 
 All these can be done using StrapiBackend and Using Frontent ReactJS
@@ -224,6 +235,12 @@ For Pagination/Lazy Loading/Infinite Scroll
 
 You need to have lots of data in backend system
 
+
+Psudo Code
+
+1. Click on DOM
+2. Find the element on which you click
+3. check if the element has the classs "anilupload"
 
 
 
