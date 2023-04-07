@@ -30,10 +30,16 @@ export default function Detail() {
     const [busDetail,setBusDetail] = useState([]);
     const [busPhotos,setBusPhotos] = useState([]);
     const [busName,setBusName] = useState('');
+
+    const [image,setImage] = useState('');
     
     
     //On page load
     useEffect(()=>{
+       /*  document.addEventListener("onchange", async function(e){
+            alert('Yes something is changged');
+        }); */
+
         document.addEventListener("click", async function(e){
            // const target = e.target.closest("#"); // Or any other selector.
             console.log(e.target.classList.contains("anilupload"))
@@ -97,23 +103,7 @@ export default function Detail() {
 
     //2.2
     const handleClose = () => setShow(false);
-    function readURL(input) {
-        alert('Heyyyyyyy!!!!');
-        //console.log(input);
-       // var url = input.value;
-        //var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
-        /* if (input.files && input.files[0]&& (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg")) {
-            var reader = new FileReader();
-        
-            reader.onload = function (e) {
-                $('#img').attr('src', e.target.result);
-            }
-            reader.readAsDataURL(input.files[0]);
-        }
-        else{
-             $('#img').attr('src', '/assets/no_preview.png');
-        } */
-    }
+    
     const handleShow = (action) => {
         //Function body
       
@@ -150,7 +140,8 @@ export default function Detail() {
                             <label for="images" class="drop-container">
                                 <span class="drop-title">Drop files here</span>
                                 or
-                                <input type="file" class="anilfile" id="images" accept="image/*" required onChange="readURL(this)">
+                                <input type="file" class="anilfile" id="images" accept="image/*" required onChange={e => handleChangeFile(e.target.files[0])} >
+                                <img id="blah" src="#" alt="your image" />
                             </label>
                             <label class="w-100 mt-3">
                                 <textarea class="form-control w-100" id="exampleFormControlTextarea1" placeholder="Captions help others Identify Whats in the Photos"></textarea>
@@ -326,6 +317,32 @@ export default function Detail() {
         });
     }
 
+    let handleFile = (e) => {
+        const content = e.target.result;
+        console.log('file content',  content)
+        // You can set content in state and show it in render.
+    }
+    let vipin = async (file)=>{
+        setImage(file);
+
+    }
+    let anilUploadImage=async ()=>{
+        //alert('oOKOKOKKOK');
+        const form = new FormData();
+        form.append('files', image);
+    
+        const response = await fetch(`${URL}/api/upload`, {
+            method: 'post',
+            body: form,
+        });
+
+        if(response){
+            swal("Image Uploaded Successfully!", "!", "success");
+        }
+
+       
+    }
+
     //2.3
     return (
         <>
@@ -333,6 +350,15 @@ export default function Detail() {
                 {parse(content)}
             </Modal>
             <h1>Detail Page</h1>
+
+
+            <form >
+                <input accept="image/*" type='file' id="imgInp" onChange={(e)=>{ vipin(e.target.files[0])}} />
+                <img id="blah" src="#" alt="your image" />
+                <input type="button" value="Upload" onClick={()=>{ anilUploadImage() }}/>
+            </form>
+
+
             <h2>{busName} <Button className="float-end"  variant="primary" onClick={()=>{ handleShow('enquiry') }}>Enquire Now</Button> </h2>
 
             <div className="clearfix"></div>
